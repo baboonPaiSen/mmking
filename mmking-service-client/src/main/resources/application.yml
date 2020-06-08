@@ -1,0 +1,23 @@
+server:
+  port: 31000
+spring:
+  application:
+    name: mmking-service-client
+  data:
+    mongodb:
+      uri: mongodb://root:root@192.168.110.173:27017
+      database: xc_cms
+  rabbitmq:
+    host: 192.168.110.173
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+mmking:
+  mq:
+    exchange: mmking.page
+    queue: static.client
+    routingKey:
+      - beijing
+      - tianjin
+      - chongqing
+      - shanghai

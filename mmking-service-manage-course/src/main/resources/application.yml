@@ -1,0 +1,15 @@
+server:
+  port: 31002
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.110.173:3306/mmking_course?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: Ge_shangkun1
+mybatis:
+  type-aliases-package: com.mmking.framework.domain.cms.course
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    lazy-loading-enabled: true
+
