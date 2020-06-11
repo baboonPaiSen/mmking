@@ -11,29 +11,33 @@ import com.mongodb.client.gridfs.GridFSDownloadStream;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Optional;
 
 @Service
 public class CmsClientService {
 
-    @Autowired
-    private CmsPageRepository pageRepository;
-    @Autowired
-    private CmsSiteRepository siteRepository;
+    private final CmsPageRepository pageRepository;
+    private final CmsSiteRepository siteRepository;
+    private final GridFsTemplate gridFsTemplate;
+    private final GridFSBucket gridFSBucket;
 
-    @Autowired
-    private GridFsTemplate gridFsTemplate;
-    @Autowired
-    private GridFSBucket gridFSBucket;
+    public CmsClientService(CmsPageRepository pageRepository, CmsSiteRepository siteRepository, GridFsTemplate gridFsTemplate, GridFSBucket gridFSBucket) {
+        this.pageRepository = pageRepository;
+        this.siteRepository = siteRepository;
+        this.gridFsTemplate = gridFsTemplate;
+        this.gridFSBucket = gridFSBucket;
+    }
 
     /**
      * 根据pageId获取WEB路径

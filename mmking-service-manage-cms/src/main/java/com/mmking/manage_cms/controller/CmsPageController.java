@@ -84,4 +84,5 @@ public class CmsPageController implements CmsPageControllerApi {
 
         return cmsPageService.deletePageById(pageId);
     }
+
 }

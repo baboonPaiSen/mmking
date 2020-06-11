@@ -7,13 +7,18 @@ import com.mmking.framework.model.response.CommonCode;
 import com.mmking.manage_cms.service.CmsTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("cms/template")
 public class CmsTemplateController implements CmsTemplateControllerApi {
 
@@ -43,6 +48,7 @@ public class CmsTemplateController implements CmsTemplateControllerApi {
         String page = cmsTemplateService.generatePage(pageId);
         try {
             response.getWriter().write(page);
+//            response.getOutputStream().write(page.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             log.error("【写入页面异常】pageId:{}",pageId);
             throw  new MMkingException(CommonCode.IO_ERROR);
@@ -55,7 +61,8 @@ public class CmsTemplateController implements CmsTemplateControllerApi {
      */
     @Override
     @PostMapping("{pageId}")
-    public void insertHtmlFileId(@PathVariable("pageId") String pageId) {
+    public ResponseEntity insertHtmlFileId(@PathVariable("pageId") String pageId) {
          cmsTemplateService.insertHtmlFileId(pageId);
+         return  ResponseEntity.ok().build();
     }
 }

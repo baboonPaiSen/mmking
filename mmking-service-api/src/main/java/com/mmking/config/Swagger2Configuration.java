@@ -11,13 +11,14 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2//扫描这个包下面所有标记了controller的类 生成接口文档
+@EnableSwagger2
 public class Swagger2Configuration {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
+                //扫描这个包下面所有标记了controller的类 生成接口文档
                 .apis(RequestHandlerSelectors.basePackage("com.mmking"))
                 .paths(PathSelectors.any())
                 .build();

@@ -1,8 +1,6 @@
 package com.mmking.client.mq;
 
 import com.mmking.client.service.CmsClientService;
-import com.mmking.framework.domain.cms.response.CmsCode;
-import com.mmking.framework.exception.MMkingException;
 import com.mmking.utils.JsonUtils;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.ExchangeTypes;
@@ -34,7 +32,6 @@ public class ItemListener {
     ))
     public  void  listenerItem(String  mqMsg, Channel channel, Message message) throws Exception{
         Map<String,String> map = JsonUtils.parse(mqMsg, Map.class);
-
 
             cmsClientService.saveHtmlToPath(map.get("pageId"));
 

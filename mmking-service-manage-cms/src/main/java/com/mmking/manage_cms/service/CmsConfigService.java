@@ -6,7 +6,6 @@ import com.mmking.framework.exception.MMkingException;
 import com.mmking.manage_cms.mapper.CmsConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
@@ -29,6 +28,7 @@ public class CmsConfigService {
         if (optional.isPresent()){
             return optional.get();
         }
+
 
         throw new MMkingException(CmsCode.CMSCONFIG_NOTFOUND);
     }

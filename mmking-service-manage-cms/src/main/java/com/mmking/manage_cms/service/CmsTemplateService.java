@@ -30,7 +30,6 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.constraints.NotNull;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -83,7 +82,7 @@ public class CmsTemplateService {
         }
 
 
-        /*合成静态页*/
+        //合成静态页
         Configuration configuration = new Configuration(Configuration.getVersion());
         /*创建模板加载器*/
         StringTemplateLoader stringTemplateLoader = new StringTemplateLoader();
@@ -96,9 +95,8 @@ public class CmsTemplateService {
             Template generatePageTemplate = configuration.getTemplate(pageId);
 
             /*注意model是一个list 里面存放的map*/
-            String page = FreeMarkerTemplateUtils.processTemplateIntoString(generatePageTemplate, model);
 
-          return  page;
+            return FreeMarkerTemplateUtils.processTemplateIntoString(generatePageTemplate, model);
         } catch (Exception e) {
             throw new MMkingException(CommonCode.IO_ERROR);
         }
@@ -112,7 +110,7 @@ public class CmsTemplateService {
      * @param pageId
      * @return
      */
-    public Map getTemplateModel(@NotNull String pageId){
+    private Map getTemplateModel(@NotNull String pageId){
 
 
         CmsPageResult cmsPageResult = cmsPageService.selectPageById(pageId);
@@ -126,6 +124,7 @@ public class CmsTemplateService {
             if (body==null){
                 throw new MMkingException(CmsCode.CMSCONFIG_NOTFOUND);
             }
+
 
             return  body;
         }else {
@@ -142,7 +141,7 @@ public class CmsTemplateService {
      * @param pageId
      * @return
      */
-    public String getTemplate(String pageId){
+    private String getTemplate(String pageId){
 
         /*定义*/
         CmsTemplate cmsTemplate = null;
@@ -169,9 +168,7 @@ public class CmsTemplateService {
             try {
                 InputStream inputStream = resource.getInputStream();
 
-                String s = IOUtils.toString(inputStream, "utf-8");
-
-                return  s;
+                return IOUtils.toString(inputStream, "utf-8");
             } catch (Exception e) {
                 log.error("[从服务器下载数据异常]{}",templateId);
                 e.printStackTrace();
