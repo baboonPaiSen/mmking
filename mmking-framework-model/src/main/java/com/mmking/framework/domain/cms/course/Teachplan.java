@@ -5,6 +5,7 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -21,11 +22,13 @@ public class Teachplan implements Serializable {
     @GeneratedValue(generator = "jpa-uuid")
     @Column(length = 32)
     private String id;
+    @NotNull
     private String pname;
     private String parentid;
     private String grade;
     private String ptype;
     private String description;
+    @NotNull
     private String courseid;
     private String status;
     private Integer orderby;

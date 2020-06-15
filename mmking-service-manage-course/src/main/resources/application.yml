@@ -1,5 +1,5 @@
 server:
-  port: 31002
+  port: 31200
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,4 +12,5 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     lazy-loading-enabled: true
-
+pagehelper:
+  auto-dialect: mysql

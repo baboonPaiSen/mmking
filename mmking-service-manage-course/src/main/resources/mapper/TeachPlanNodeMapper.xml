@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmking.course.mapper.TeachPlanNodeMapper">
+
+    <resultMap id="treeMap" type="TeachplanNode">
+        <id property="id" column="t1Id"/>
+        <result property="pname" column="t1Pname"/>
+        <collection property="children" ofType="TeachplanNode">
+            <id property="id" column="t2Id"/>
+            <result property="pname" column="t2Pname"/>
+            <collection property="children" ofType="TeachplanNode">
+                <id property="id" column="t3Id"/>
+                <result property="pname" column="t3Pname"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectListByCourseId" parameterType="String" resultMap="treeMap">
+
+
+        SELECT
+        t1.id t1Id,
+        t1.pname t1Pname,
+        t2.id t2Id,
+        t2.pname t2Pname,
+        t3.id t3Id,
+        t3.pname t3Pname
+        FROM
+        teachplan t1
+        LEFT JOIN teachplan t2 ON t2.parentid = t1.id
+        LEFT JOIN teachplan t3 ON t3.parentid = t2.id
+        where t1.parentid = 0
+          <if test=" _parameter !=null and _parameter != ''"/>
+          and t1.courseid = #{course}
+        order by t1.pname, t2.pname, t3.pname
+
+
+    </select>
+</mapper>
